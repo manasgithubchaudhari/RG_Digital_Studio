@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased transition-colors duration-500 bg-slate-50 text-slate-900;
+  }
+  
+  .dark body {
+    @apply bg-background-dark text-slate-100;
+  }
+}
+
+@layer components {
+  /* Default (Light) Glass Card */
+  .glass-card {
+    @apply bg-white/40 backdrop-blur-[12px] border border-slate-200 shadow-lg transition-all duration-300;
+  }
+  
+  /* Dark Mode Glass Card */
+  .dark .glass-card {
+    @apply bg-white/[0.03] border-white/[0.08] shadow-none;
+  }
+  
+  /* Hover States */
+  .glass-card:hover {
+    @apply -translate-y-1 bg-white border-primary/30 shadow-[0_20px_40px_rgba(0,0,0,0.05)];
+  }
+  
+  .dark .glass-card:hover {
+    @apply bg-primary/10 border-primary/40 shadow-[0_20px_40px_rgba(124,59,237,0.15)];
+  }
+
+  /* Hero Gradients */
+  .hero-gradient {
+    @apply transition-all duration-700;
+    background: radial-gradient(circle at 50% 50%, rgba(124, 59, 237, 0.05) 0%, transparent 70%);
+  }
+
+  .dark .hero-gradient {
+    background: radial-gradient(circle at 50% 50%, rgba(124, 59, 237, 0.12) 0%, transparent 70%);
+  }
+
+  .glow-border {
+    @apply border border-primary/20 shadow-[0_0_15px_rgba(124,59,237,0.1)];
+  }
+}
