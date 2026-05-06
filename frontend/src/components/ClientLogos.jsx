@@ -15,7 +15,7 @@ const ClientLogos = () => {
       <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
         <div>
           <h2 className="text-3xl font-bold">Trusted by Industry Leaders</h2>
-          <p className="text-slate-400 mt-2">Brands that have utilized our studio facilities</p>
+          <p className="text-slate-600 dark:text-slate-400 mt-2">Brands that have utilized our studio facilities</p>
         </div>
         <a href="/portfolio" className="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all">
           View Case Studies <span className="material-symbols-outlined">arrow_forward</span>
@@ -29,6 +29,8 @@ const ClientLogos = () => {
               src={logo.src} 
               alt={logo.alt} 
               loading="lazy"
+              width="150"
+              height="150"
               className="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-110"
               onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=Logo'; }}
             />

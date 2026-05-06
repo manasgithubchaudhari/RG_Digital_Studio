@@ -30,12 +30,15 @@ const Home = () => {
                 <img 
                   src="/assets/img/logo.png" 
                   alt="Digital marketing dashboard" 
+                  width="800"
+                  height="450"
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
               </div>
             </div>
             <div className="absolute -top-6 -right-6 size-24 glass-card rounded-xl flex items-center justify-center -rotate-12 z-0">
-              <span className="material-symbols-outlined text-primary text-4xl">trending_up</span>
+              <span className="material-symbols-outlined text-primary dark:text-purple-400 text-4xl">trending_up</span>
             </div>
           </div>
         </div>
@@ -43,16 +46,16 @@ const Home = () => {
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-20">
         <div className="glass-card p-8 rounded-xl flex flex-col gap-2">
-          <p className="text-slate-500 dark:text-slate-400 font-medium">Projects Completed</p>
-          <p className="text-4xl font-bold tracking-tight">250<span className="text-primary">+</span></p>
+          <p className="text-slate-600 dark:text-slate-400 font-medium">Projects Completed</p>
+          <p className="text-4xl font-bold tracking-tight">250<span className="text-primary dark:text-purple-400">+</span></p>
         </div>
         <div className="glass-card p-8 rounded-xl flex flex-col gap-2">
-          <p className="text-slate-500 dark:text-slate-400 font-medium">Average Client Growth</p>
-          <p className="text-4xl font-bold tracking-tight">140<span className="text-primary">%</span></p>
+          <p className="text-slate-600 dark:text-slate-400 font-medium">Average Client Growth</p>
+          <p className="text-4xl font-bold tracking-tight">140<span className="text-primary dark:text-purple-400">%</span></p>
         </div>
         <div className="glass-card p-8 rounded-xl flex flex-col gap-2">
-          <p className="text-slate-500 dark:text-slate-400 font-medium">Global Awards</p>
-          <p className="text-4xl font-bold tracking-tight">15<span className="text-primary">+</span></p>
+          <p className="text-slate-600 dark:text-slate-400 font-medium">Global Awards</p>
+          <p className="text-4xl font-bold tracking-tight">15<span className="text-primary dark:text-purple-400">+</span></p>
         </div>
       </section>
 
@@ -64,7 +67,7 @@ const Home = () => {
               We specialize in delivering premium digital experiences that drive measurable results for our global partners.
             </p>
           </div>
-          <div className="text-primary flex items-center gap-2 font-bold cursor-pointer group">
+          <div className="text-primary dark:text-purple-400 flex items-center gap-2 font-bold cursor-pointer group">
             Learn more about our process
             <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
           </div>

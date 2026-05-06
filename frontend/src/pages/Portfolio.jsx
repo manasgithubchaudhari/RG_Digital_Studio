@@ -71,7 +71,7 @@ const Portfolio = () => {
           transition={{ delay: 0.2 }}
           className="mt-6 text-5xl font-black tracking-tight lg:text-7xl text-slate-900 dark:text-white"
         >
-          Selected <span className="text-primary text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Projects</span>
+          Selected <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400 dark:from-purple-400 dark:to-purple-200">Projects</span>
         </motion.h1>
       </section>
 
@@ -85,7 +85,7 @@ const Portfolio = () => {
               className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
                 category === cat 
                   ? 'bg-primary text-white shadow-lg shadow-primary/30' 
-                  : 'text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-white'
               }`}
             >
               {cat}
@@ -122,11 +122,14 @@ const Portfolio = () => {
                   <img 
                     src={item.image.startsWith('http') ? item.image : `http://localhost:5173${item.image}`} 
                     alt={item.title} 
+                    width="800"
+                    height="600"
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 </div>
                 <div className="p-8">
-                  <span className="text-xs font-bold text-primary uppercase tracking-widest">{item.category}</span>
+                  <span className="text-xs font-bold text-primary dark:text-purple-400 uppercase tracking-widest">{item.category}</span>
                   <h3 className="text-2xl font-bold mt-3 text-slate-900 dark:text-white group-hover:text-primary transition-colors">{item.title}</h3>
                 </div>
               </motion.div>
@@ -161,10 +164,13 @@ const Portfolio = () => {
               <img 
                 src={selectedImage.image.startsWith('http') ? selectedImage.image : `http://localhost:5173${selectedImage.image}`} 
                 alt={selectedImage.title} 
+                width="1200"
+                height="800"
+                loading="lazy"
                 className="w-full h-full object-contain"
               />
               <div className="absolute bottom-0 left-0 right-0 p-8 pt-20 bg-gradient-to-t from-black/80 to-transparent">
-                <span className="text-xs font-bold text-primary uppercase tracking-widest">{selectedImage.category}</span>
+                <span className="text-xs font-bold text-purple-400 uppercase tracking-widest">{selectedImage.category}</span>
                 <h2 className="text-3xl font-black text-white mt-2">{selectedImage.title}</h2>
               </div>
               <button 
