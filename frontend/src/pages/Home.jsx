@@ -32,7 +32,7 @@ const Home = () => {
                   alt="Digital marketing dashboard" 
                   width="800"
                   height="450"
-                  fetchpriority="high"
+                  fetchPriority="high"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
               </div>

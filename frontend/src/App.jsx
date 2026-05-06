@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
-import Services from './pages/Services';
-import Portfolio from './pages/Portfolio';
-import Contact from './pages/Contact';
-import ServiceDetail from './pages/ServiceDetail';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import AdminDashboard from './pages/admin/Dashboard';
-import CustomerDashboard from './pages/customer/Dashboard';
+
+// Lazy loaded routes to reduce initial bundle size (unused JS)
+const Services = React.lazy(() => import('./pages/Services'));
+const Portfolio = React.lazy(() => import('./pages/Portfolio'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const ServiceDetail = React.lazy(() => import('./pages/ServiceDetail'));
+const Login = React.lazy(() => import('./pages/Login'));
+const Register = React.lazy(() => import('./pages/Register'));
+const AdminDashboard = React.lazy(() => import('./pages/admin/Dashboard'));
+const CustomerDashboard = React.lazy(() => import('./pages/customer/Dashboard'));
 
 const ProtectedRoute = ({ children, role }) => {
   const { user, loading } = useAuth();
@@ -23,6 +25,12 @@ const ProtectedRoute = ({ children, role }) => {
   return children;
 };
 
+const LoadingSpinner = () => (
+  <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="size-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+  </div>
+);
+
 const PageWrapper = ({ children }) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
@@ -30,7 +38,9 @@ const PageWrapper = ({ children }) => (
     exit={{ opacity: 0, y: -10 }}
     transition={{ duration: 0.4, ease: "easeOut" }}
   >
-    {children}
+    <Suspense fallback={<LoadingSpinner />}>
+      {children}
+    </Suspense>
   </motion.div>
 );
 
