@@ -15,7 +15,7 @@ const AdminDashboard = () => {
 
     const fetchInquiries = async () => {
         try {
-            const res = await axios.get('http://localhost:5001/api/admin/inquiries');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/admin/inquiries`);
             setInquiries(res.data);
         } catch (error) {
             console.error('Error fetching inquiries', error);
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
     const deleteInquiry = async (id) => {
         if (!window.confirm('Are you sure you want to delete this inquiry?')) return;
         try {
-            await axios.delete(`http://localhost:5001/api/admin/inquiries/${id}`);
+            await axios.delete(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/admin/inquiries/${id}`);
             setInquiries(inquiries.filter(i => i._id !== id));
         } catch (error) {
             console.error('Error deleting inquiry', error);

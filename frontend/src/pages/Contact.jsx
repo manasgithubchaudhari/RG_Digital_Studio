@@ -38,7 +38,7 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus('Sending...');
-    fetch('http://localhost:5001/api/contact', {
+    fetch(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),

@@ -14,7 +14,7 @@ const CustomerDashboard = () => {
 
     const fetchMyInquiries = async () => {
         try {
-            const res = await axios.get('http://localhost:5001/api/customer/my-inquiries');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/customer/my-inquiries`);
             setInquiries(res.data);
         } catch (error) {
             console.error('Error fetching my inquiries', error);

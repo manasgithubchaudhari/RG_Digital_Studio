@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post('http://localhost:5001/api/auth/login', { email, password });
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/auth/login`, { email, password });
       setToken(res.data.token);
       setUser(res.data.user);
       localStorage.setItem('user', JSON.stringify(res.data.user));
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password, role = 'customer') => {
     try {
-      const res = await axios.post('http://localhost:5001/api/auth/register', { name, email, password, role });
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/auth/register`, { name, email, password, role });
       setToken(res.data.token);
       setUser(res.data.user);
       localStorage.setItem('user', JSON.stringify(res.data.user));

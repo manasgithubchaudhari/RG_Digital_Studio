@@ -9,7 +9,7 @@ const Portfolio = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5001/api/portfolio')
+    fetch(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/portfolio`)
       .then(res => res.json())
       .then(data => {
         setPortfolio(data);
@@ -120,7 +120,7 @@ const Portfolio = () => {
                     <span className="material-symbols-outlined text-white text-5xl transform scale-50 group-hover:scale-100 transition-transform duration-300">fullscreen</span>
                   </div>
                   <img 
-                    src={item.image.startsWith('http') ? item.image : `http://localhost:5173${item.image}`} 
+                    src={item.image.startsWith('http') ? item.image : item.image} 
                     alt={item.title} 
                     width="800"
                     height="600"
@@ -162,7 +162,7 @@ const Portfolio = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <img 
-                src={selectedImage.image.startsWith('http') ? selectedImage.image : `http://localhost:5173${selectedImage.image}`} 
+                src={selectedImage.image.startsWith('http') ? selectedImage.image : selectedImage.image} 
                 alt={selectedImage.title} 
                 width="1200"
                 height="800"
