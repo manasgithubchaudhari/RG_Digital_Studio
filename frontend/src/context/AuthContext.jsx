@@ -27,11 +27,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-<<<<<<< HEAD
       const res = await axios.post(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/auth/login`, { email, password });
-=======
-      const res = await axios.post('https://rg-digital-studio.onrender.com/api/auth/login', { email, password });
->>>>>>> d2def5c86581b3cd6ae876d6a27b6343559949ee
       setToken(res.data.token);
       setUser(res.data.user);
       localStorage.setItem('user', JSON.stringify(res.data.user));
