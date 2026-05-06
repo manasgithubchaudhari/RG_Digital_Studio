@@ -28,11 +28,11 @@ const Home = () => {
             <div className="glass-card p-4 rounded-xl shadow-2xl relative z-10 overflow-hidden">
               <div className="w-full aspect-video rounded-lg overflow-hidden bg-slate-200 dark:bg-slate-900">
                 <img 
-                  src="/assets/img/logo.png" 
+                  src="/assets/img/logo.webp" 
                   alt="Digital marketing dashboard" 
                   width="800"
                   height="450"
-                  loading="lazy"
+                  fetchpriority="high"
                   className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                 />
               </div>
