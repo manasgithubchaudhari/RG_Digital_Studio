@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const ClientLogos = () => {
   const logos = [
@@ -17,9 +18,9 @@ const ClientLogos = () => {
           <h2 className="text-3xl font-bold">Trusted by Industry Leaders</h2>
           <p className="text-slate-600 dark:text-slate-400 mt-2">Brands that have utilized our studio facilities</p>
         </div>
-        <a href="/portfolio" className="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all">
+        <Link to="/portfolio" className="text-primary font-bold flex items-center gap-2 hover:gap-3 transition-all">
           View Case Studies <span className="material-symbols-outlined">arrow_forward</span>
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">

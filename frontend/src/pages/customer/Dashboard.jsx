@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const CustomerDashboard = () => {
@@ -53,7 +54,7 @@ const CustomerDashboard = () => {
                     ) : inquiries.length === 0 ? (
                         <div className="glass-card p-16 text-center rounded-[2rem]">
                             <p className="text-slate-500 mb-6">You haven't submitted any inquiries yet.</p>
-                            <a href="/contact" className="bg-primary text-white px-8 py-3 rounded-full font-bold inline-block">Start Your First Project</a>
+                            <Link to="/contact" className="bg-primary text-white px-8 py-3 rounded-full font-bold inline-block">Start Your First Project</Link>
                         </div>
                     ) : (
                         <div className="space-y-6">
