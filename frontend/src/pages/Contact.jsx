@@ -38,7 +38,10 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus('Sending...');
-    fetch(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/contact`, {
+    const backendUrl = import.meta.env.VITE_API_URL || 
+      (window.location.hostname === 'localhost' ? 'http://localhost:5001' : 'https://rg-digital-studio.onrender.com');
+
+    fetch(`${backendUrl}/api/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
@@ -57,8 +60,7 @@ const Contact = () => {
   const processSteps = [
     { title: "Digital Inquiry", desc: "Share your vision through our detailed inquiry form.", icon: "edit_note" },
     { title: "Strategy Call", desc: "A deep-dive session to align on goals and expectations.", icon: "call" },
-    { title: "Custom Proposal", desc: "We deliver a bespoke roadmap and transparent quote.", icon: "description" },
-    { title: "Project Kickoff", desc: "Seamless launch with your dedicated agency team.", icon: "rocket_launch" }
+    { title: "Custom Proposal", desc: "We deliver a bespoke roadmap and transparent quote.", icon: "description" }
   ];
 
   return (
@@ -161,33 +163,25 @@ const Contact = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-slate-400">Budget Range</label>
-                    <select 
+                    <input 
+                      type="text"
                       required
-                      className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-primary transition-colors text-slate-900 dark:text-white appearance-none cursor-pointer"
+                      placeholder="e.g. $5,000 or ₹4,00,000"
+                      className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-primary transition-colors text-slate-900 dark:text-white"
                       value={formData.budget}
                       onChange={(e) => setFormData({...formData, budget: e.target.value})}
-                    >
-                      <option value="" disabled className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">Project Budget</option>
-                      <option value="<$5k" className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">Less than $5,000</option>
-                      <option value="$5k-$15k" className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">$5,000 - $15,000</option>
-                      <option value="$15k-$50k" className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">$15,000 - $50,000</option>
-                      <option value="$50k+" className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">$50,000+</option>
-                    </select>
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-widest text-slate-400">Timeline</label>
-                    <select 
+                    <input 
+                      type="text"
                       required
-                      className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-primary transition-colors text-slate-900 dark:text-white appearance-none cursor-pointer"
+                      placeholder="e.g. 2 months"
+                      className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 outline-none focus:border-primary transition-colors text-slate-900 dark:text-white"
                       value={formData.timeline}
                       onChange={(e) => setFormData({...formData, timeline: e.target.value})}
-                    >
-                      <option value="" disabled className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">Desired Timeline</option>
-                      <option value="Immediate" className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">Immediate Start</option>
-                      <option value="1-3 Months" className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">1-3 Months</option>
-                      <option value="3-6 Months" className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">3-6 Months</option>
-                      <option value="Not Sure" className="bg-white dark:bg-background-dark text-slate-900 dark:text-white">Not Sure Yet</option>
-                    </select>
+                    />
                   </div>
                 </div>
 

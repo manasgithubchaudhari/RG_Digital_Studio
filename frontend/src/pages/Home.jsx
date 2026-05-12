@@ -45,17 +45,20 @@ const Home = () => {
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-20">
-        <div className="glass-card p-8 rounded-xl flex flex-col gap-2">
-          <p className="text-slate-600 dark:text-slate-400 font-medium">Projects Completed</p>
-          <p className="text-4xl font-bold tracking-tight">250<span className="text-primary dark:text-purple-400">+</span></p>
+        <div className="glass-card p-8 rounded-xl flex flex-col gap-4 hover:border-primary/40 transition-colors">
+          <span className="material-symbols-outlined text-primary text-4xl">lightbulb</span>
+          <p className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Creative Innovation</p>
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Pushing the boundaries of digital design to make your brand uniquely stand out in the market.</p>
         </div>
-        <div className="glass-card p-8 rounded-xl flex flex-col gap-2">
-          <p className="text-slate-600 dark:text-slate-400 font-medium">Average Client Growth</p>
-          <p className="text-4xl font-bold tracking-tight">140<span className="text-primary dark:text-purple-400">%</span></p>
+        <div className="glass-card p-8 rounded-xl flex flex-col gap-4 hover:border-primary/40 transition-colors">
+          <span className="material-symbols-outlined text-primary text-4xl">verified</span>
+          <p className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Quality Execution</p>
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Delivering flawless, robust solutions with unmatched attention to detail and performance.</p>
         </div>
-        <div className="glass-card p-8 rounded-xl flex flex-col gap-2">
-          <p className="text-slate-600 dark:text-slate-400 font-medium">Global Awards</p>
-          <p className="text-4xl font-bold tracking-tight">15<span className="text-primary dark:text-purple-400">+</span></p>
+        <div className="glass-card p-8 rounded-xl flex flex-col gap-4 hover:border-primary/40 transition-colors">
+          <span className="material-symbols-outlined text-primary text-4xl">support_agent</span>
+          <p className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Dedicated Support</p>
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed">Your trusted partner providing ongoing, reliable support to fuel your long-term growth.</p>
         </div>
       </section>
 
@@ -67,10 +70,10 @@ const Home = () => {
               We specialize in delivering premium digital experiences that drive measurable results for our global partners.
             </p>
           </div>
-          <div className="text-primary dark:text-purple-400 flex items-center gap-2 font-bold cursor-pointer group">
+          <Link to="/services" className="text-primary dark:text-purple-400 flex items-center gap-2 font-bold cursor-pointer group">
             Learn more about our process
             <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-          </div>
+          </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="glass-card p-8 rounded-xl flex flex-col gap-6 hover:border-primary/40 transition-colors">

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
@@ -17,24 +16,12 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const { user } = useAuth();
-
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
     { name: 'Portfolio', path: '/portfolio' },
     { name: 'Contact', path: '/contact' },
   ];
-
-  if (user) {
-    if (user.role === 'admin') {
-      navLinks.push({ name: 'Admin', path: '/admin' });
-    } else {
-      navLinks.push({ name: 'Dashboard', path: '/dashboard' });
-    }
-  } else {
-    navLinks.push({ name: 'Login', path: '/login' });
-  }
 
   return (
     <motion.div
@@ -43,13 +30,13 @@ const Navbar = () => {
       className={`nav-floating fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-4'}`}
     >
       <header className="mx-auto max-w-7xl px-6 lg:px-12 flex items-center justify-between bg-white/40 dark:bg-background-dark/40 backdrop-blur-[12px] border border-slate-200 dark:border-white/10 rounded-full py-3 shadow-2xl transition-all duration-300">
-        <Link to="/" className="flex items-center gap-3 shrink-0">
-          <div className="size-6 text-primary">
-            <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z"></path>
-            </svg>
-          </div>
-          <h2 className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight hidden sm:block">RG Digital Studio</h2>
+        <Link to="/" className="flex items-center gap-3 shrink-0 group">
+          <img 
+            src="/assets/img/logo.png" 
+            alt="RG" 
+            className="h-10 w-10 rounded-full object-cover border-2 border-primary shadow-[0_0_15px_rgba(109,40,217,0.4)] brightness-110 contrast-110 group-hover:scale-105 group-hover:shadow-[0_0_20px_rgba(109,40,217,0.6)] transition-all duration-300 bg-white"
+          />
+          <h2 className="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight hidden sm:block">RG Digital Works</h2>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -74,16 +61,9 @@ const Navbar = () => {
               {theme === 'dark' ? 'light_mode' : 'dark_mode'}
             </span>
           </button>
-          {user ? (
-            <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <span className="material-symbols-outlined text-primary text-sm">person</span>
-              <span className="text-xs font-bold text-primary truncate max-w-[80px]">{user.name.split(' ')[0]}</span>
-            </div>
-          ) : (
-            <Link to="/contact" className="hidden sm:flex min-w-[120px] cursor-pointer items-center justify-center rounded-full h-10 px-6 bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
-                <span>Work with Us</span>
-            </Link>
-          )}
+          <Link to="/contact" className="hidden sm:flex min-w-[120px] cursor-pointer items-center justify-center rounded-full h-10 px-6 bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+              <span>Work with Us</span>
+          </Link>
         </div>
       </header>
     </motion.div>

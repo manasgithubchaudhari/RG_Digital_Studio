@@ -9,7 +9,10 @@ const Portfolio = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/portfolio`)
+    const backendUrl = import.meta.env.VITE_API_URL || 
+      (window.location.hostname === 'localhost' ? 'http://localhost:5001' : 'https://rg-digital-studio.onrender.com');
+
+    fetch(`${backendUrl}/api/portfolio`)
       .then(res => res.json())
       .then(data => {
         setPortfolio(data);

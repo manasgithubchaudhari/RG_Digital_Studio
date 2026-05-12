@@ -3,29 +3,14 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 import Home from './pages/Home';
 import { ThemeProvider } from './context/ThemeContext';
-import { AuthProvider, useAuth } from './context/AuthContext';
-
 // Lazy loaded routes to reduce initial bundle size (unused JS)
 const Services = React.lazy(() => import('./pages/Services'));
 const Portfolio = React.lazy(() => import('./pages/Portfolio'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const ServiceDetail = React.lazy(() => import('./pages/ServiceDetail'));
-const Login = React.lazy(() => import('./pages/Login'));
-const Register = React.lazy(() => import('./pages/Register'));
-const AdminDashboard = React.lazy(() => import('./pages/admin/Dashboard'));
-const CustomerDashboard = React.lazy(() => import('./pages/customer/Dashboard'));
-
-const ProtectedRoute = ({ children, role }) => {
-  const { user, loading } = useAuth();
-  if (loading) return <div className="min-h-screen flex items-center justify-center"><div className="size-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div></div>;
-  if (!user) return <Login />;
-  
-  const userRole = user.role === 'user' || !user.role ? 'customer' : user.role;
-  if (role && userRole !== role) return <div className="min-h-screen flex items-center justify-center"><h1 className="text-3xl font-bold text-slate-900 dark:text-white">Unauthorized Access</h1></div>;
-  return children;
-};
 
 const LoadingSpinner = () => (
   <div className="min-h-[60vh] flex items-center justify-center">
@@ -56,22 +41,6 @@ const AnimatedRoutes = () => {
         <Route path="/services/:id" element={<PageWrapper><ServiceDetail /></PageWrapper>} />
         <Route path="/portfolio" element={<PageWrapper><Portfolio /></PageWrapper>} />
         <Route path="/contact" element={<PageWrapper><Contact /></PageWrapper>} />
-        <Route path="/login" element={<PageWrapper><Login /></PageWrapper>} />
-        <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
-        
-        {/* Protected Admin Routes */}
-        <Route path="/admin" element={
-          <ProtectedRoute role="admin">
-            <PageWrapper><AdminDashboard /></PageWrapper>
-          </ProtectedRoute>
-        } />
-
-        {/* Protected Customer Routes */}
-        <Route path="/dashboard" element={
-          <ProtectedRoute role="customer">
-            <PageWrapper><CustomerDashboard /></PageWrapper>
-          </ProtectedRoute>
-        } />
       </Routes>
     </AnimatePresence>
   );
@@ -81,15 +50,14 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        <AuthProvider>
-          <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark transition-colors duration-500">
-            <Navbar />
-            <div className="flex-1">
-              <AnimatedRoutes />
-            </div>
-            <Footer />
+        <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark transition-colors duration-500">
+          <Navbar />
+          <div className="flex-1">
+            <AnimatedRoutes />
           </div>
-        </AuthProvider>
+          <FloatingWhatsApp />
+          <Footer />
+        </div>
       </Router>
     </ThemeProvider>
   );
