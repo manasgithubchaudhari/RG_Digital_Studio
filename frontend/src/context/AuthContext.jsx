@@ -33,20 +33,48 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(res.data.user));
       return { success: true };
     } catch (error) {
+      if (error.response?.data?.requiresOtp) {
+        return { success: false, requiresOtp: true, message: error.response.data.message };
+      }
       return { success: false, message: error.response?.data?.message || 'Login failed' };
     }
   };
 
-  const register = async (name, email, password, role = 'customer') => {
+  const register = async (name, email, password) => {
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/auth/register`, { name, email, password, role });
-      setToken(res.data.token);
-      setUser(res.data.user);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
+      // Role is automatically set to 'customer' in backend
+      const res = await axios.post(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/auth/register`, { name, email, password });
+      if (res.data.requiresOtp) {
+        return { success: true, requiresOtp: true, message: res.data.message };
+      }
       return { success: true };
     } catch (error) {
       return { success: false, message: error.response?.data?.message || 'Registration failed' };
     }
+  };
+
+  const verifyOtp = async (email, otp) => {
+      try {
+          const res = await axios.post(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/auth/verify-otp`, { email, otp });
+          setToken(res.data.token);
+          setUser(res.data.user);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
+          return { success: true };
+      } catch (error) {
+          return { success: false, message: error.response?.data?.message || 'OTP Verification failed' };
+      }
+  };
+
+  const oauthLogin = async (email, name, provider) => {
+      try {
+          const res = await axios.post(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/auth/oauth`, { email, name, provider });
+          setToken(res.data.token);
+          setUser(res.data.user);
+          localStorage.setItem('user', JSON.stringify(res.data.user));
+          return { success: true };
+      } catch (error) {
+          return { success: false, message: error.response?.data?.message || 'OAuth Login failed' };
+      }
   };
 
   const logout = () => {
@@ -56,7 +84,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, token, login, register, verifyOtp, oauthLogin, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

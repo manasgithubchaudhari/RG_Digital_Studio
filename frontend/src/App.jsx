@@ -21,7 +21,9 @@ const ProtectedRoute = ({ children, role }) => {
   const { user, loading } = useAuth();
   if (loading) return <div className="min-h-screen flex items-center justify-center"><div className="size-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div></div>;
   if (!user) return <Login />;
-  if (role && user.role !== role) return <div className="min-h-screen flex items-center justify-center h1 text-white">Unauthorized Access</div>;
+  
+  const userRole = user.role === 'user' || !user.role ? 'customer' : user.role;
+  if (role && userRole !== role) return <div className="min-h-screen flex items-center justify-center"><h1 className="text-3xl font-bold text-slate-900 dark:text-white">Unauthorized Access</h1></div>;
   return children;
 };
 

@@ -15,12 +15,26 @@ const CustomerDashboard = () => {
 
     const fetchMyInquiries = async () => {
         try {
-            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/customer/my-inquiries`);
+            const token = localStorage.getItem('token');
+            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'https://rg-digital-studio.onrender.com'}/api/customer/my-inquiries`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
             setInquiries(res.data);
         } catch (error) {
             console.error('Error fetching my inquiries', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const getStatusStyle = (status) => {
+        switch (status) {
+            case 'Pending': return { color: 'text-yellow-500', bg: 'bg-yellow-500', width: '20%' };
+            case 'In Review': return { color: 'text-blue-500', bg: 'bg-blue-500', width: '40%' };
+            case 'In Progress': return { color: 'text-purple-500', bg: 'bg-purple-500', width: '60%' };
+            case 'Completed': return { color: 'text-green-500', bg: 'bg-green-500', width: '80%' };
+            case 'Delivered': return { color: 'text-teal-500', bg: 'bg-teal-500', width: '100%' };
+            default: return { color: 'text-slate-500', bg: 'bg-slate-500', width: '10%' };
         }
     };
 
@@ -68,14 +82,26 @@ const CustomerDashboard = () => {
                                     </div>
                                     <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">{inquiry.subject}</h3>
                                     <p className="text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">{inquiry.message}</p>
-                                    <div className="mt-8 flex items-center gap-6 border-t border-slate-200 dark:border-white/5 pt-6">
-                                        <div className="flex items-center gap-2">
-                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</span>
-                                            <span className="text-xs font-bold text-green-500">In Review</span>
+                                    <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/5">
+                                        <div className="mb-4">
+                                            <div className="flex justify-between items-center mb-2">
+                                                <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Progress Tracker</span>
+                                                <span className={`text-xs font-bold ${getStatusStyle(inquiry.status || 'Pending').color}`}>
+                                                    {inquiry.status || 'Pending'}
+                                                </span>
+                                            </div>
+                                            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 mb-4">
+                                                <div 
+                                                    className={`${getStatusStyle(inquiry.status || 'Pending').bg} h-1.5 rounded-full transition-all duration-1000`} 
+                                                    style={{ width: getStatusStyle(inquiry.status || 'Pending').width }}
+                                                ></div>
+                                            </div>
                                         </div>
-                                        <div className="flex items-center gap-2">
-                                            <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Budget</span>
-                                            <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{inquiry.budget}</span>
+                                        <div className="flex items-center gap-6">
+                                            <div className="flex items-center gap-2">
+                                                <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">Budget</span>
+                                                <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{inquiry.budget || 'Not Specified'}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -181,7 +181,7 @@ app.get('/api/admin/inquiries', authenticateToken, isAdmin, async (req, res) => 
             console.warn('DB not connected, serving mock inquiries');
             // Mock inquiries for demo
             return res.json([
-                { _id: '1', name: 'Mock Client', email: 'client@example.com', serviceType: 'Web Development', budget: '$5k - $10k', timeline: '3 months', message: 'I need a professional portfolio website.', createdAt: new Date() }
+                { _id: '1', name: 'Mock Client', email: 'client@example.com', serviceType: 'Web Development', budget: '$5k - $10k', timeline: '3 months', message: 'I need a professional portfolio website.', status: 'Pending', createdAt: new Date() }
             ]);
         }
         const inquiries = await Contact.find().sort({ createdAt: -1 });
@@ -191,12 +191,38 @@ app.get('/api/admin/inquiries', authenticateToken, isAdmin, async (req, res) => 
     }
 });
 
-// Admin Route to delete inquiry
 app.delete('/api/admin/inquiries/:id', authenticateToken, isAdmin, async (req, res) => {
     try {
         if (mongoose.connection.readyState !== 1) return res.json({ message: 'Deleted (mock)' });
         await Contact.findByIdAndDelete(req.params.id);
         res.json({ message: 'Inquiry deleted' });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Admin Route to update inquiry status
+app.put('/api/admin/inquiries/:id/status', authenticateToken, isAdmin, async (req, res) => {
+    try {
+        const { status } = req.body;
+        if (mongoose.connection.readyState !== 1) return res.json({ message: 'Status updated (mock)', status });
+        const updatedInquiry = await Contact.findByIdAndUpdate(req.params.id, { status }, { new: true });
+        res.json(updatedInquiry);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// Admin Route to get all customers
+app.get('/api/admin/users', authenticateToken, isAdmin, async (req, res) => {
+    try {
+        if (mongoose.connection.readyState !== 1) {
+            return res.json([
+                { _id: '1', name: 'Mock Customer', email: 'customer@example.com', role: 'customer', createdAt: new Date() }
+            ]);
+        }
+        const users = await User.find({ role: 'customer' }).select('-password').sort({ createdAt: -1 });
+        res.json(users);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -229,7 +255,7 @@ app.get('/api/customer/my-inquiries', authenticateToken, async (req, res) => {
     try {
         if (mongoose.connection.readyState !== 1) {
             return res.json([
-                { _id: '1', subject: 'Project Started', serviceType: 'Branding', budget: 'Negotiable', message: 'Excited to start!', createdAt: new Date() }
+                { _id: '1', subject: 'Project Started', serviceType: 'Branding', budget: 'Negotiable', message: 'Excited to start!', status: 'In Progress', createdAt: new Date() }
             ]);
         }
         const user = await User.findById(req.user.id);
@@ -248,3 +274,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+

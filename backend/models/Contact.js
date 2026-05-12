@@ -8,6 +8,7 @@ const contactSchema = new mongoose.Schema({
     serviceType: { type: String },
     budget: { type: String },
     timeline: { type: String },
+    status: { type: String, enum: ['Pending', 'In Review', 'In Progress', 'Completed', 'Delivered'], default: 'Pending' },
     createdAt: { type: Date, default: Date.now },
 });
 
